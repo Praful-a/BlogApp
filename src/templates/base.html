@@ -5,7 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>This is Title.</title>
-    <h1>This is header</h1>
+
+    {% if request.user.is_authenticated %}
+    <p>Hello, {{ request.user.username }} | <a href="{% url 'logout' %}">Logout</a></p>
+    {% else %}
+    <p><a href="{% url 'register' %">Register</a> | <a href="#">Login</a></p>
+    {% endif %}
+    <hr>
+
 </head>
 
 <body>
@@ -13,7 +20,8 @@
     {% endblock content %}
 </body>
 <footer>
-    <h3>This is footer.</h3>
+    <hr>
+    <p>Explorers | 2022</p>
 </footer>
 
 </html>
