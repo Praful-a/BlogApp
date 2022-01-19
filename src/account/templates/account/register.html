@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
 
 <style type="text/css">
@@ -50,6 +50,10 @@
 </style>
 
 <form class="form-signin" method="post">
+    <div class="d-flex flex-column pb-3">
+        <img class="img-fluid mx-auto d-block" src="{% static 'codingwithmitch_logo.png' %}" alt="codingwithrock logo"
+            width="72" height="72">
+    </div>
     {% csrf_token %}
     <h1 class="h3 mb-3 font-weight-normal">Register</h1>
 
