@@ -26,7 +26,8 @@ from account.views import (
     registration_view,
     logout_view,
     login_view,
-    account_view
+    account_view,
+    must_authenticate_view
 )
 
 urlpatterns = [
@@ -37,6 +38,7 @@ urlpatterns = [
     path('login/', login_view, name='login'),
     path('account/', account_view, name='account'),
     path('blog/', include('blog.urls', 'blog')),
+    path('must_authenticate/', must_authenticate_view, name='must_authenticate'),
 
     # Password reset links (ref: https://github.com/django/django/blob/master/django/contrib/auth/views.py)
     path('password_change/done/', auth_views.PasswordChangeDoneView.as_view(template_name='registration/password_change_done.html'),
