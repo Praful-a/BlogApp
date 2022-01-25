@@ -18,9 +18,9 @@ class BlogPost(models.Model):
     body = models.TextField(max_length=5000, null=False, blank=False)
     image = models.ImageField(
         upload_to=upload_location, null=False, blank=False)
-    date_published = models.DateField(
+    date_published = models.DateTimeField(
         auto_now_add=True, verbose_name="date published")
-    date_published = models.DateField(
+    date_updated = models.DateTimeField(
         auto_now=True, verbose_name="date updated")
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
