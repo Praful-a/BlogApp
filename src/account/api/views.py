@@ -1,8 +1,9 @@
 from rest_framework import status
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
 
-from account.api.serializers import RegisterationSerializer
+from account.api.serializers import AccountPropertiesSerializer, RegisterationSerializer
 from rest_framework.authtoken.models import Token
 
 
@@ -22,3 +23,36 @@ def registration_view(request):
         else:
             data = serializer.errors
         return Response(data)
+
+
+@api_view(['GET', ])
+@permission_classes((IsAuthenticated,))
+def account_properties_view(request):
+
+    try:
+        account = request.user
+    except:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == "GET":
+        serializer = AccountPropertiesSerializer(account)
+        return Response(serializer.data)
+
+
+@api_view(["PUT", ])
+@permission_classes((IsAuthenticated,))
+def update_account_view(request):
+
+    try:
+        account = request.user
+    except:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == "PUT":
+        serializer = AccountPropertiesSerializer(account, data=request.data)
+        data = {}
+        if serializer.is_valid():
+            serializer.save()
+            data['response'] = "Account updated Successfully"
+            return Response(data=data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
